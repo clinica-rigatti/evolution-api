@@ -14,3 +14,9 @@ COPY patches/Socket-messages-recv.js node_modules/baileys/lib/Socket/messages-re
 COPY patches/Socket-messages-recv.d.ts node_modules/baileys/lib/Socket/messages-recv.d.ts
 COPY patches/Utils-process-message.js node_modules/baileys/lib/Utils/process-message.js
 COPY patches/Utils-process-message.d.ts node_modules/baileys/lib/Utils/process-message.d.ts
+
+# Fix LID→Phone resolution in API responses (fetchMessages + fetchChats)
+# Problema: GET endpoints retornam remoteJid com @lid em vez de telefone
+# Fix: resolve LID→PN via Redis lid-mapping nos .map() de fetchMessages e fetchChats
+# Nota: main.js é o bundle real (node dist/main), arquivos em dist/api/services/ não são usados
+COPY patches/main.js dist/main.js
